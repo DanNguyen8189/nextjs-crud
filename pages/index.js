@@ -22,6 +22,7 @@ export default function Home() {
       <Link href="/page">Test page</Link>
       <Link href="/prisma_test2">Prisma Test page</Link>
       <Link href="/prisma_test5">Prisma Test page5</Link>
+      <Link href="/logs">Crashouts page</Link>
       <Footer />
     </div>
   )
