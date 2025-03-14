@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import formidable from 'formidable';
 import { firstValues } from "formidable/src/helpers/firstValues.js";
 import * as yup from "yup";
-import { object, string, number, date, InferType } from 'yup';
+import { object, string, number, date, InferType, array } from 'yup';
 import prisma from '../../lib/prisma_lib';
 import { Prisma } from '@prisma/client';
 
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
     try {
         const { fields, files } = await formData;
         ///fields.json()
-        //res.status(200).send({ fields });
+        res.status(200).send({ fields }); //TODO for testing purposes
         //const fields2 = { name: 'jimmy'}
         //res.status(200).send({ status: "submitted" });
         const isValid = await validateFromData(fields, files);
@@ -84,6 +84,7 @@ export default async function handler(req, res) {
 let formSchema = object({
     title: string().required(),
     description: string(),
+    tags: array().of(string())
 });
 
 async function validateFromData(fields, files) {
@@ -99,17 +100,18 @@ async function validateFromData(fields, files) {
 
 async function saveFormData(fields, files) {
     // save to persistent data store
-    try {
-        const log = await prisma.log.create({
-            data: {
-                userId: 1,
-                title: fields.title,
-                description: fields.description
-            }
-        })
-    } catch(e){
-        throw e
-    }
+    // try {
+    //     const log = await prisma.log.create({
+    //         data: {
+    //             userId: 1,
+    //             title: fields.title,
+    //             description: fields.description,
+    //             //tags: [fields.tags]
+    //         }
+    //     })
+    // } catch(e){
+    //     throw e
+    // }
 }
 
 async function saveFormData2(fields, files) {
