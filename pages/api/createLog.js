@@ -53,12 +53,13 @@ export default async function handler(req, res) {
     try {
         const { fields, files } = await formData;
         ///fields.json()
-        res.status(200).send({ fields }); //TODO for testing purposes
+        //res.status(200).send({ fields }); //TODO for testing purposes
         //const fields2 = { name: 'jimmy'}
         //res.status(200).send({ status: "submitted" });
         const isValid = await validateFromData(fields, files);
+        //res.status(200).send({ status: "submitted" });
+        res.status(200).send({ status: isValid });
         if (!isValid) throw Error("invalid form schema");
-    
         try {
             await saveFormData(fields, files);
             res.status(200).send({ status: "submitted" });
@@ -84,7 +85,7 @@ export default async function handler(req, res) {
 let formSchema = object({
     title: string().required(),
     description: string(),
-    tags: array().of(string())
+    //tags: array().of(string())
 });
 
 async function validateFromData(fields, files) {
@@ -100,18 +101,18 @@ async function validateFromData(fields, files) {
 
 async function saveFormData(fields, files) {
     // save to persistent data store
-    // try {
-    //     const log = await prisma.log.create({
-    //         data: {
-    //             userId: 1,
-    //             title: fields.title,
-    //             description: fields.description,
-    //             //tags: [fields.tags]
-    //         }
-    //     })
-    // } catch(e){
-    //     throw e
-    // }
+    try {
+        const log = await prisma.log.create({
+            data: {
+                userId: 1,
+                title: fields.title,
+                description: fields.description,
+                //tags: [fields.tags]
+            }
+        })
+    } catch(e){
+        throw e
+    }
 }
 
 async function saveFormData2(fields, files) {

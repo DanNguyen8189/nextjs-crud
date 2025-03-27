@@ -20,13 +20,16 @@ export default function Page() {
         try {
             //const formData = new FormData(event.currentTarget)
             const formData = new FormData(event.currentTarget)
-            formData.append("tags", selectedValue); // append the fields from the multiselect form
+            //formData.append("tags[]", selectedValue); // append the fields from the multiselect form
+            formData.append("tags[]", "tag1"); // append the fields from the multiselect form
+            formData.append("tags[]", "tag2");
     
             // below was for testing, if ever need to extract client side
             const dataArray = [...formData];
             const data2 = Object.fromEntries(dataArray);
             console.log("data from client side:", data2);
-            const response = await fetch('/api/createLog', {
+            //const response = await fetch('/api/createLog', {
+            const response = await fetch('/api/logs', {
                 method: 'POST',
                 body: formData,
             })
