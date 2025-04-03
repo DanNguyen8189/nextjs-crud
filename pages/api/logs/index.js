@@ -16,11 +16,15 @@ export default async function handler(req, res) {
     switch (method) {
 		case "POST":
             const form = formidable({ multiples: true });
+            let tags = []; // for saveformdata function to be able to use the tags array
             const formData = new Promise((resolve, reject) => {
                 form.parse(req, async (err, fields, files) => {
                 if (err) {
                     reject("error");
                 }
+                //res.status(200).send({ fields: fields.tags });
+                tags = fields.tags
+                // res.status(200).send({ fields: tags });
                 // resolve({ fields, files });
                 // https://github.com/node-formidable/formidable/issues/876
                 // fields come in as array of strings instead of just a string, to avoid type error based on different user input
@@ -38,7 +42,7 @@ export default async function handler(req, res) {
                 if (!isValid) throw Error("invalid form schema");
             
                 try {
-                    await saveFormData(fields, files);
+                    await saveFormData(fields, tags, files);
                     res.status(200).send({ status: "submitted" });
                     return;
                 } catch (e) {
@@ -69,12 +73,11 @@ async function validateFromData(fields, files) {
     }
 }
 
-async function saveFormData(fields, files) {
+async function saveFormData(fields, tags, files) {
     // save to persistent data store
     try {
 
         //const tags = ["what", "the", "fuck"] // this works
-        //const tags = fields.tags
         //const {tags, fields} = fields
         
 
@@ -83,6 +86,7 @@ async function saveFormData(fields, files) {
                 userId: 1,
                 title: fields.title,
                 description: fields.description,
+                //tags: fields.tags,
                 //tags: [fields.tags]
 
                 // tags: {
