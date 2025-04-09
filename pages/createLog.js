@@ -4,12 +4,13 @@ import MultiSelectDropdown from '../components/selectTags';
 
 export default function Page() {
     const [isLoading, setIsLoading] = useState(false)
-    const [selectedValue, setSelectedValue] = useState('');
+    // const [selectedValue, setSelectedValue] = useState('');
 
-    const handleSelectChange = (value) => {
-        //from tag selection
-        setSelectedValue(value);
-    };
+    // const handleSelectChange = (value) => {
+    //     //from tag selection
+    //     setSelectedValue(value);
+    //     console.log("selected value from parent pov: ", selectedValue);
+    // };
     
     async function onSubmit(event) {
         event.preventDefault()
@@ -34,7 +35,6 @@ export default function Page() {
             // for (const value of formData.values()) {
             //     console.log(value);
             //   }
-            //const response = await fetch('/api/createLog', {
             const response = await fetch('/api/logs', {
                 method: 'POST',
                 body: formData,
@@ -63,7 +63,7 @@ export default function Page() {
         <form onSubmit={onSubmit}>
             <input type="text" name="title" />
             <input type="text" name="description" />
-            <MultiSelectDropdown onSelectChange={handleSelectChange}/>
+            {/* <MultiSelectDropdown onSelectChange={handleSelectChange}/> */}
             <button type="submit" disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Submit'}
             </button>

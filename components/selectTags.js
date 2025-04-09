@@ -6,6 +6,7 @@ export default function MultiSelectDropdown({ onSelectChange }) {
     const [items, setItems] = useState([]);
     const [selectedValue, setSelectedValue] = useState('');
 
+    // look at database to see all tag options
     useEffect(() => {
     async function fetchData() {
         const response = await fetch('/api/getTags');
@@ -16,16 +17,18 @@ export default function MultiSelectDropdown({ onSelectChange }) {
     }, []);
 
     const handleChange = (event) => {
+        console.log("onchange activated: ", event.target.value);
+        console.log("selected from selectTag component pov: ", selectedValue)
         setSelectedValue(event.target.value);
         onSelectChange(event.target.value); //signals parent component that something was selected
-        console.log("selected: ", selectedValue)
+    
     };
 
     return (
     <select value={selectedValue} onChange={handleChange}>
         <option value="" disabled>Select an item</option>
         {items.map((item) => (
-        <option key={item.id} value={item.id}>
+        <option key={item.id} value={item.name}>
             {item.name}
         </option>
         ))}
