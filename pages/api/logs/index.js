@@ -16,16 +16,14 @@ export default async function handler(req, res) {
     switch (method) {
 		case "POST":
             const form = formidable({ multiples: true });
-            let tags = []; // for saveformdata function to be able to use the tags array
+            let tags = []; // for saveformdata function to be able to use the tags array / the resolve function used below messes it up
             const formData = new Promise((resolve, reject) => {
                 form.parse(req, async (err, fields, files) => {
                 if (err) {
                     reject("error");
                 }
-                //res.status(200).send({ fields: fields.tags });
-                tags = fields.tags
-                // res.status(200).send({ fields: tags });
-                // resolve({ fields, files });
+                tags = fields.tags // pull the tags out before separately resolving / validating
+
                 // https://github.com/node-formidable/formidable/issues/876
                 // fields come in as array of strings instead of just a string, to avoid type error based on different user input
                 resolve({ fields: firstValues(form, fields), files });
@@ -36,8 +34,6 @@ export default async function handler(req, res) {
                 //const tags = formData.getAll("tags")
                 ///fields.json()
                 //res.status(200).send({ tags }); //TODO for testing purposes
-                //const fields2 = { name: 'jimmy'}
-                //res.status(200).send({ fields });
                 const isValid = await validateFromData(fields, files);
                 if (!isValid) throw Error("invalid form schema");
             
@@ -77,24 +73,11 @@ async function saveFormData(fields, tags, files) {
     // save to persistent data store
     try {
 
-        //const tags = ["what", "the", "fuck"] // this works
-        //const {tags, fields} = fields
-        
-
         const log = await prisma.log.create({
             data: {
                 userId: 1,
                 title: fields.title,
                 description: fields.description,
-                //tags: fields.tags,
-                //tags: [fields.tags]
-
-                // tags: {
-                //     connectOrCreate: [
-                //         { create: { name: 'tag1' }, where: { name: 'tag1' } },
-                //         { create: { name: 'tag2' }, where: { name: 'tag2' } },
-                //     ],
-                //   },
                 tags: {
                     connectOrCreate: tags.map(tag => ({
                       where: { name: tag }, create:  { name: tag } 
