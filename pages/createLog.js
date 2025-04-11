@@ -1,49 +1,61 @@
 import Form from 'next/form'
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent, useEffect } from 'react'
 import CreatableSelect from 'react-select/creatable';
 
   
 export default function Page() {
-    const [isLoading, setIsLoading] = useState(false)
-    // const defaultOptions = [
-    //     { value: 'ocean', label: 'Ocean', color: '#00B8D9', isFixed: true },
-    //     { value: 'blue', label: 'Blue', color: '#0052CC', isDisabled: true },
-    //     { value: 'purple', label: 'Purple', color: '#5243AA' },
-    //     { value: 'red', label: 'Red', color: '#FF5630', isFixed: true },
-    //     { value: 'orange', label: 'Orange', color: '#FF8B00' },
-    //     { value: 'yellow', label: 'Yellow', color: '#FFC400' },
-    //     { value: 'green', label: 'Green', color: '#36B37E' },
-    //     { value: 'forest', label: 'Forest', color: '#00875A' },
-    //     { value: 'slate', label: 'Slate', color: '#253858' },
-    //     { value: 'silver', label: 'Silver', color: '#666666' },
-    //   ];
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [tags, setTags] = useState([]);
 
-
+    // creates options for multiselect dropdown component
     const createOption = (label) => ({
         label,
         value: label.toLowerCase().replace(/\W/g, ''),
     });
+    // custom function to create options from tag names pulled from useEffect function
+    const createOptionWrapper = ( obj ) => {
+        return createOption(obj['name'])
+    }
+
     const defaultOptions = [
         createOption('One'),
         createOption('Two'),
         createOption('Three'),
     ];
+
+    // look at database to see all tag options
+    useEffect(() => {
+    async function fetchData() {
+        const response = await fetch('/api/getTags');
+        let data = await response.json();
+        const data2 = data.map(createOptionWrapper);
+        console.log("from useEffect:", data2);
+        setTags(data2);
+    }
+    fetchData();
+    }, []);
+
+    const [isLoading, setIsLoading] = useState(false);
     const [options, setOptions] = useState(defaultOptions);
-    // const [value, setValue] = useState(null);
-      
+    const [value, setValue] = useState(null);
+
     const handleCreate = (inputValue) => {
         setIsLoading(true);
         setTimeout(() => {
-          const newOption = createOption(inputValue);
-          setIsLoading(false);
-          setOptions((prev) => [...prev, newOption]);
-          setValue(newOption);
+            const newOption = createOption(inputValue);
+            setIsLoading(false);
+            setTags((prev) => [...prev, newOption]); // todo need to make a selected list?
+            setValue(newOption); // is this needed?
         }, 1000);
       };
+
+    const testfire = (newValue) => {
+        console.log("testfire: ", newValue);
+    }
       
     async function onSubmit(event) {
         event.preventDefault()
-        setIsLoading(true) // Set loading to true when the request starts
+        setIsSubmitting(true) // Set loading to true when the request starts
     
         //setError(null) // Clear previous errors when a new request starts
      
@@ -84,7 +96,7 @@ export default function Page() {
             //setError(error.message)
             console.error(error)
         } finally {
-            setIsLoading(false) // Set loading to false when the request completes  
+            setIsSubmitting(false) // Set loading to false when the request completes  
         }
     }
     
@@ -94,12 +106,15 @@ export default function Page() {
             <input type="text" name="description" />
             <CreatableSelect 
                 isMulti 
-                // isClearable
-                // isDisabled={isLoading}
-                // isLoading={isLoading}
+                isClearable
+                isDisabled={isLoading}
+                isLoading={isLoading}
                 //onChange={(newValue) => setValue(newValue)}
-                options={defaultOptions}
-                // onCreateOption={handleCreate}
+                onChange={(newValue) => testfire(newValue)}
+                //options={defaultOptions}
+                options={tags? tags : defaultOptions}
+                //onCreateOption={handleCreate}
+                //value={value}
              />
             <button type="submit" disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Submit'}

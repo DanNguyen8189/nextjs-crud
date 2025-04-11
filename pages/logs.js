@@ -39,7 +39,7 @@ export default function Page({logs}) {
 
     return (
     <main className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Crashouts</h1>
+        <h1 className="text-2xl font-bold mb-4">Logs</h1>
         <ul className="space-y-2">
         {logs.length > 0 ? (
             logs.map(log => (
@@ -50,11 +50,11 @@ export default function Page({logs}) {
             </li>
             ))
         ) : (
-            <p>No crashouts recorded yet. Start tweaking!</p>
+            <p>No logs recorded yet!</p>
         )}
         </ul>
         {/* <button onClick={createLog}>createLogtest</button> */}
-        <Link href="/createLog">Add a crashout</Link>
+        <Link href="/createLog">Add a log</Link>
     </main>
     );
 }
