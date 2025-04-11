@@ -38,7 +38,8 @@ export default function Page() {
     const [isLoading, setIsLoading] = useState(false);
     const [options, setOptions] = useState(defaultOptions);
     const [value, setValue] = useState(null);
-    const [selected, setSelected] = useState([]);
+    //const [selected, setSelected] = useState([]);
+    let selected = []
 
     const handleCreate = (inputValue) => {
         setIsLoading(true);
@@ -52,7 +53,8 @@ export default function Page() {
 
     const testfire = (newValue) => {
         //console.log("testfire: ", newValue);
-        setSelected(newValue);
+        //setSelected(newValue);
+        selected = newValue;
         //console.log("testfire from state: ", selected);
     }
       
@@ -118,13 +120,14 @@ export default function Page() {
                 isLoading={isLoading}
                 //onChange={(newValue) => setValue(newValue)}
                 onChange={(newValue) => testfire(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
+                //onChange={newValue}
                 //options={defaultOptions}
                 options={tags? tags : defaultOptions}
                 //onCreateOption={handleCreate}
                 //value={value}
              />
-            <button type="submit" disabled={isLoading}>
-                {isLoading ? 'Loading...' : 'Submit'}
+            <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Loading...' : 'Submit'}
             </button>
         </form>
 
