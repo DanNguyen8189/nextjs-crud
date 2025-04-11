@@ -17,12 +17,6 @@ export default function Page() {
         return createOption(obj['name'])
     }
 
-    const defaultOptions = [
-        createOption('One'),
-        createOption('Two'),
-        createOption('Three'),
-    ];
-
     // look at database to see all tag options
     useEffect(() => {
     async function fetchData() {
@@ -36,20 +30,19 @@ export default function Page() {
     }, []);
 
     const [isLoading, setIsLoading] = useState(false);
-    const [options, setOptions] = useState(defaultOptions);
-    const [value, setValue] = useState(null);
+    //const [value, setValue] = useState(null);
     //const [selected, setSelected] = useState([]);
     let selected = []
 
-    const handleCreate = (inputValue) => {
-        setIsLoading(true);
-        setTimeout(() => {
-            const newOption = createOption(inputValue);
-            setIsLoading(false);
-            setTags((prev) => [...prev, newOption]); // todo need to make a selected list?
-            setValue(newOption); // is this needed?
-        }, 1000);
-      };
+    // const handleCreate = (inputValue) => {
+    //     setIsLoading(true);
+    //     setTimeout(() => {
+    //         const newOption = createOption(inputValue);
+    //         setIsLoading(false);
+    //         setTags((prev) => [...prev, newOption]); // todo need to make a selected list?
+    //         setValue(newOption); // is this needed?
+    //     }, 1000);
+    //   };
 
     const testfire = (newValue) => {
         //console.log("testfire: ", newValue);
@@ -121,8 +114,7 @@ export default function Page() {
                 //onChange={(newValue) => setValue(newValue)}
                 onChange={(newValue) => testfire(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
                 //onChange={newValue}
-                //options={defaultOptions}
-                options={tags? tags : defaultOptions}
+                options={tags}
                 //onCreateOption={handleCreate}
                 //value={value}
              />
