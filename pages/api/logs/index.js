@@ -24,6 +24,11 @@ export default async function handler(req, res) {
                 }
                 tags = fields.tags // pull the tags out before separately resolving / validating
 
+                if (Array.isArray(tags) == false) {
+                    // needed because "fields.tags" ends up being an empty object {} if no tags were added, instead of 
+                    // an empty array [] as we intended
+                    tags = []
+                }
                 // https://github.com/node-formidable/formidable/issues/876
                 // fields come in as array of strings instead of just a string, to avoid type error based on different user input
                 resolve({ fields: firstValues(form, fields), files });
@@ -38,6 +43,7 @@ export default async function handler(req, res) {
                 if (!isValid) throw Error("invalid form schema");
             
                 try {
+                    //res.status(200).send({"HAHA":"HAHA"}); //TODO for testing purposes
                     await saveFormData(fields, tags, files);
                     res.status(200).send({ status: "submitted" });
                     return;

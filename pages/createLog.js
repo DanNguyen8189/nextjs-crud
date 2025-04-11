@@ -29,7 +29,7 @@ export default function Page() {
         const response = await fetch('/api/getTags');
         let data = await response.json();
         const data2 = data.map(createOptionWrapper);
-        console.log("from useEffect:", data2);
+        //console.log("from useEffect:", data2);
         setTags(data2);
     }
     fetchData();
@@ -38,6 +38,7 @@ export default function Page() {
     const [isLoading, setIsLoading] = useState(false);
     const [options, setOptions] = useState(defaultOptions);
     const [value, setValue] = useState(null);
+    const [selected, setSelected] = useState([]);
 
     const handleCreate = (inputValue) => {
         setIsLoading(true);
@@ -50,7 +51,9 @@ export default function Page() {
       };
 
     const testfire = (newValue) => {
-        console.log("testfire: ", newValue);
+        //console.log("testfire: ", newValue);
+        setSelected(newValue);
+        //console.log("testfire from state: ", selected);
     }
       
     async function onSubmit(event) {
@@ -63,10 +66,14 @@ export default function Page() {
             //const formData = new FormData(event.currentTarget)
             const formData = new FormData(event.currentTarget)
             //formData.append("tags[]", selectedValue); // append the fields from the multiselect form
-            formData.append("tags", "tag1"); // append the fields from the multiselect form
-            formData.append("tags", "tag2");
+            // formData.append("tags", "tag1"); // append the fields from the multiselect form
+            // formData.append("tags", "tag2");
+            //console.log("selected length: ", selected.length)
+            for (let i = 0; i < selected.length; i++) {
+                formData.append("tags", selected[i].value);
+            }
             //formData.append("tags", selectedValue);
-            console.log(formData.getAll("tags")); // Returns ["Chris", "Bob"])
+            console.log("formdata tags: ", formData.getAll("tags")); // Returns ["Chris", "Bob"])
     
             // below was for testing, if ever need to extract client side
             // const dataArray = [...formData];
@@ -110,7 +117,7 @@ export default function Page() {
                 isDisabled={isLoading}
                 isLoading={isLoading}
                 //onChange={(newValue) => setValue(newValue)}
-                onChange={(newValue) => testfire(newValue)}
+                onChange={(newValue) => testfire(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
                 //options={defaultOptions}
                 options={tags? tags : defaultOptions}
                 //onCreateOption={handleCreate}
