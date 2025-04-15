@@ -13,7 +13,7 @@ export const config = {
 
 export default async function handler(req, res) {
     const { method } = req;
-    switch (method) {
+    switch ( method ) {
         case "GET":
             try {
                 const items = await prisma.tag.findMany({

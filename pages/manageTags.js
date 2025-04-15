@@ -14,6 +14,20 @@ export async function getStaticProps(){
 
 export default function Page({tags}) {
     const [isLoading, setIsLoading] = useState(false)
+
+    async function deleteTag(id){
+        try {
+            const response = await fetch(`/api/tags/${id}`, {
+                method: 'DELETE'
+            })
+
+            const data = await response.json()
+            console.log(data)
+        } catch (e){
+            console.error("client side error: ", e)
+        }
+    }
+
     async function onSubmit(event) {
         event.preventDefault()
         setIsLoading(true) // Set loading to true when the request starts
@@ -29,10 +43,10 @@ export default function Page({tags}) {
             const data = await response.json()
             console.log(data)
             // ...
-        } catch (error) {
+        } catch (e) {
             // Capture the error message to display to the user
             //setError(error.message)
-            console.error(error)
+            console.error(e)
         } finally {
             setIsLoading(false) // Set loading to false when the request completes  
         }
@@ -50,6 +64,8 @@ export default function Page({tags}) {
                 tags.map(tag => (
                 <li key={tag.id} className="p-4 border rounded shadow-sm">
                     <p>{tag.name}</p>
+                    {/* https://stackoverflow.com/questions/34226076/why-is-my-onclick-being-called-on-render-react-js */}
+                    <button onClick={ () => deleteTag(tag.id) }>x</button>
                 </li>
                 ))
             ) : (

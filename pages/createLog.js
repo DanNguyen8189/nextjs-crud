@@ -98,6 +98,5 @@ export default function Page() {
                 {isSubmitting ? 'Loading...' : 'Submit'}
             </button>
         </form>
-
     )
 }
