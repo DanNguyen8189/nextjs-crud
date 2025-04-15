@@ -29,26 +29,10 @@ export default function Page() {
     fetchData();
     }, []);
 
-    const [isLoading, setIsLoading] = useState(false);
-    //const [value, setValue] = useState(null);
-    //const [selected, setSelected] = useState([]);
     let selected = []
 
-    // const handleCreate = (inputValue) => {
-    //     setIsLoading(true);
-    //     setTimeout(() => {
-    //         const newOption = createOption(inputValue);
-    //         setIsLoading(false);
-    //         setTags((prev) => [...prev, newOption]); // todo need to make a selected list?
-    //         setValue(newOption); // is this needed?
-    //     }, 1000);
-    //   };
-
-    const testfire = (newValue) => {
-        //console.log("testfire: ", newValue);
-        //setSelected(newValue);
+    const setSelected = (newValue) => {
         selected = newValue;
-        //console.log("testfire from state: ", selected);
     }
       
     async function onSubmit(event) {
@@ -58,9 +42,7 @@ export default function Page() {
         //setError(null) // Clear previous errors when a new request starts
      
         try {
-            //const formData = new FormData(event.currentTarget)
             const formData = new FormData(event.currentTarget)
-            //formData.append("tags[]", selectedValue); // append the fields from the multiselect form
             // formData.append("tags", "tag1"); // append the fields from the multiselect form
             // formData.append("tags", "tag2");
             //console.log("selected length: ", selected.length)
@@ -109,14 +91,8 @@ export default function Page() {
             <CreatableSelect 
                 isMulti 
                 isClearable
-                isDisabled={isLoading}
-                isLoading={isLoading}
-                //onChange={(newValue) => setValue(newValue)}
-                onChange={(newValue) => testfire(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
-                //onChange={newValue}
-                options={tags}
-                //onCreateOption={handleCreate}
-                //value={value}
+                onChange={(newValue) => setSelected(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
+                options={tags} 
              />
             <button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? 'Loading...' : 'Submit'}

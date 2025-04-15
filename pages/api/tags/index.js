@@ -71,7 +71,6 @@ async function validateFromData(fields, files) {
     try {
         //await formSchema.validate({ ...fields, ...files });
         await formSchema.validate({ ...fields});
-        //await formSchema2.validate({ name: 'jimmy'})
     return true;
     } catch (e) {
         return false;
