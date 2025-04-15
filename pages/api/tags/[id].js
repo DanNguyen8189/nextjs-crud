@@ -19,9 +19,15 @@ export default async function handler(req, res) {
                         id: parseInt(id)
                     }
                 })
-                res.status(200).send({ status: "got tag "+id });
+                res.status(200).send({ 
+                    success: true,
+                    data: tag
+                });
             } catch (e){
-                res.status(400).send({ status: "could not get tag: " + e });
+                res.status(400).send({ 
+                    success: false,
+                    data: e
+                });
                 return;
             }
         case "DELETE":
@@ -34,11 +40,14 @@ export default async function handler(req, res) {
 
 				return res.status(200).json({
 					success: true,
-					data: { id },
+					data: deleteTag
 				});
 
             } catch (e) {
-                res.status(400).send({ status: "could not delete tag: " + e });
+                res.status(400).send({ 
+                    success: false, 
+                    data: e
+                });
                 return;
             }
         default:
