@@ -22,6 +22,7 @@ export default async function handler(req, res) {
                     //     name: true, // Adjust based on your schema
                     // },
                 });
+                //res.status(200).json([]);
                 res.status(200).json(items);
             } catch (e) {
                 res.status(400).send({ status: "could not grab tag list: " + e });

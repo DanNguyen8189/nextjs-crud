@@ -20,10 +20,13 @@ export default function Page() {
     // look at database to see all tag options
     useEffect(() => {
     async function fetchData() {
-        const response = await fetch('/api/getTags');
-        let data = await response.json();
+        // TODO add a try catch
+        const response = await fetch(`/api/tags`, {
+            method: 'GET'
+        })
+        let data = await response.json(); // properly turns response into array
         const data2 = data.map(createOptionWrapper);
-        //console.log("from useEffect:", data2);
+        console.log("from useEffect tags:", response);
         setTags(data2);
     }
     fetchData();

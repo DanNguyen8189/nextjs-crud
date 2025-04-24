@@ -51,6 +51,6 @@ export default async function handler(req, res) {
                 return;
             }
         default:
-            res.status(400).send({ status: "invalid request?" });
+            res.status(400).send({ status: "invalid request" });
     }
 }

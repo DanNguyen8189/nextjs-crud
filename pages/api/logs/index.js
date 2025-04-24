@@ -13,7 +13,18 @@ export const config = {
 
 export default async function handler(req, res) {
     const { method } = req;
-    switch (method) {
+    switch ( method ) {
+        case "GET":
+            try {
+                const items = await prisma.log.findMany({
+                });
+                //console.log(items)
+                //res.status(400).send({ status: "dafuq"})
+                res.status(200).json(items);
+            } catch (e) {
+                res.status(400).send({ status: "could not grab log list: " + e });
+                return;
+            }
 		case "POST":
             const form = formidable({ multiples: true });
             let tags = []; // for saveformdata function to be able to use the tags array / the resolve function used below messes it up
@@ -55,6 +66,8 @@ export default async function handler(req, res) {
                 res.status(400).send({ status: "invalid submission" });
                 return;
             }
+            default:
+                res.status(400).send({ status: "invalid request" });
     }
 }
 
