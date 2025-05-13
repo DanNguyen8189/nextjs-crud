@@ -17,6 +17,9 @@ export default async function handler(req, res) {
         case "GET":
             try {
                 const items = await prisma.log.findMany({
+                    include: {
+                        tags: true, // Returns all tags for all logs
+                    },
                 });
                 //console.log(items)
                 //res.status(400).send({ status: "dafuq"})

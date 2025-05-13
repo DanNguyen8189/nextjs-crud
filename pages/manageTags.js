@@ -24,7 +24,7 @@ export default function Page({tags}) {
             const data = await response.json()
             console.log(data)
         } catch (e){
-            console.error("client side error: ", e)
+            console.error(e)
         }
     }
 

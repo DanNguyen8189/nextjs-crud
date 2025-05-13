@@ -9,6 +9,8 @@
     "export": "next build && next export"
   },
   "dependencies": {
+    "@mantine/core": "^8.0.0",
+    "@mantine/hooks": "^8.0.0",
     "@netlify/plugin-nextjs": "^5.9.4",
     "@prisma/client": "^6.4.1",
     "formidable": "^3.5.2",
@@ -19,6 +21,9 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
+    "postcss": "^8.5.3",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
     "prisma": "^6.4.1"
   }
 }
