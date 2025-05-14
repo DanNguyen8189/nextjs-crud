@@ -1,6 +1,8 @@
 import Form from 'next/form'
 import React, { useState, FormEvent, useEffect } from 'react'
 import CreatableSelect from 'react-select/creatable';
+import { useDisclosure } from '@mantine/hooks';
+import { Modal, Button } from '@mantine/core';
 
   
 export default function Page() {
@@ -86,20 +88,28 @@ export default function Page() {
             setIsSubmitting(false) // Set loading to false when the request completes  
         }
     }
-    
+    const [opened, { open, close }] = useDisclosure(false);
+
     return (
-        <form onSubmit={onSubmit}>
-            <input type="text" name="title" />
-            <input type="text" name="description" />
-            <CreatableSelect 
-                isMulti 
-                isClearable
-                onChange={(newValue) => setSelected(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
-                options={tags} 
-             />
-            <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Loading...' : 'Submit'}
-            </button>
-        </form>
+        <>
+        <Modal opened={opened} onClose={close} title="New Log">
+            <form onSubmit={onSubmit}>
+                <input type="text" name="title" />
+                <input type="text" name="description" />
+                <CreatableSelect 
+                    isMulti 
+                    isClearable
+                    onChange={(newValue) => setSelected(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
+                    options={tags} 
+                />
+                <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Loading...' : 'Submit'}
+                </button>
+            </form>
+        </Modal>
+        <Button variant="default" onClick={open}>
+            Create Log
+        </Button>
+        </>
     )
 }
