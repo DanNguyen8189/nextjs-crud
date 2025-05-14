@@ -3,6 +3,7 @@ import React, { useState, FormEvent, useEffect } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button } from '@mantine/core';
+import classes from './createLog.module.css'
 
   
 export default function Page() {
@@ -92,7 +93,10 @@ export default function Page() {
 
     return (
         <>
-        <Modal opened={opened} onClose={close} title="New Log">
+        <Modal opened={opened} onClose={close} title="New Log" size="lg"
+            classNames={{
+                content: classes.content
+            }}>
             <form onSubmit={onSubmit}>
                 <input type="text" name="title" />
                 <input type="text" name="description" />
@@ -110,6 +114,20 @@ export default function Page() {
         <Button variant="default" onClick={open}>
             Create Log
         </Button>
+
+        {/* https://www.sliderrevolution.com/resources/css-modal/ */}
+{/* <div class="box">
+  <a href="#m1-o" class="link-1" id="m1-c">Modal 1</a>
+
+  <div class="modal-container" id="m1-o" style={{ background: "transparent"}}>
+    <div class="modal">
+      <h1 class="modal__title">Modal 1 Title</h1>
+      <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis ex dicta maiores libero minus obcaecati iste optio, eius labore repellendus.</p>
+      <button class="modal__btn">Button &rarr;</button>
+      <a href="#m1-c" class="link-2"></a>
+    </div>
+  </div>
+</div> */}
         </>
     )
 }
