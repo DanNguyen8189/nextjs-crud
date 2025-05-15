@@ -1,14 +1,16 @@
 import Form from 'next/form'
-import React, { useState, FormEvent, useEffect } from 'react'
+import React, { useState, FormEvent, useEffect, useRef } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button } from '@mantine/core';
-import classes from './createLog.module.css'
+import classes from '../styles/createLog.module.css'
 
   
 export default function Page() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [tags, setTags] = useState([]);
+    const spanRef = useRef(null); // needed to attach span text to formdata (formdata won't pick it up on its own)
+    const [opened, { open, close }] = useDisclosure(false); //modal open/close
 
     // creates options for multiselect dropdown component
     const createOption = (label) => ({
@@ -52,6 +54,9 @@ export default function Page() {
             // formData.append("tags", "tag1"); // append the fields from the multiselect form
             // formData.append("tags", "tag2");
             //console.log("selected length: ", selected.length)
+            if (spanRef.current){
+                formData.append("description", spanRef.current.textContent)
+            }
             for (let i = 0; i < selected.length; i++) {
                 formData.append("tags", selected[i].value);
             }
@@ -80,6 +85,8 @@ export default function Page() {
             // Handle response if necessary
             const data = await response.json()
             console.log(data)
+            close();
+
             // ...
         } catch (error) {
             // Capture the error message to display to the user
@@ -89,7 +96,6 @@ export default function Page() {
             setIsSubmitting(false) // Set loading to false when the request completes  
         }
     }
-    const [opened, { open, close }] = useDisclosure(false);
 
     return (
         <>
@@ -98,8 +104,16 @@ export default function Page() {
                 content: classes.content
             }}>
             <form onSubmit={onSubmit}>
-                <input type="text" name="title" />
-                <input type="text" name="description" />
+                <p>Title</p>
+                <input type="text" name="title" className={classes.input}/>
+                <p>Description</p>
+                {/* <input type="text" name="description" className={[classes.input, classes.inputDescription].join(" ")}/> */}
+                <span ref={spanRef}
+                    name ="description"
+                    className={[classes.input, classes.inputDescription].join(" ")}
+                    contentEditable="true">
+                    </span>
+                <p>Tags</p>
                 <CreatableSelect 
                     isMulti 
                     isClearable
