@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { Avatar, Group, Paper, Text, TypographyStylesProvider, Button, Badge, Loader} from '@mantine/core';
-import classes from '@styles/CommentHtml.module.css';
+//import classes from '@styles/CommentHtml.module.css';
 import CreateLog from './createLog'
+import classes from '../styles/logs.module.css'
 
 // this technically works, but ... this data probably shouldn't be publicky cached??
 // export async function getStaticProps(){
@@ -65,9 +66,9 @@ export default function Page() {
     }
 
     return (
-        <div>
+        <div className={classes.body}>
         <CreateLog/>
-        {(isLoading) && <Loader color="blue" size="xl" />}
+        {(isLoading) && <div className={classes.loader}><Loader color="blue" size="xl" /></div>}
         {(!isLoading && logs.length <= 0) && <p>No logs recorded</p>}
         {(!isLoading && logs.length > 0) &&
             <ul className="space-y-2" style={{listStyleType:'none'}}>

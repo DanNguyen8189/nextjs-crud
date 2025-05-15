@@ -69,6 +69,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', sans-serif;
   color: var(--light);
   background: var(--global-background);
+  /* display: grid; */
 }
 
 a,

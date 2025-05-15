@@ -3,12 +3,13 @@ import React, { useState, FormEvent, useEffect, useRef } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button } from '@mantine/core';
-import classes from '../styles/createLog.module.css'
+import classes from '@styles/createLog.module.css'
 
   
 export default function Page() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [tags, setTags] = useState([]);
+    const [title, setTitle] = useState('');
     const spanRef = useRef(null); // needed to attach span text to formdata (formdata won't pick it up on its own)
     const [opened, { open, close }] = useDisclosure(false); //modal open/close
 
@@ -42,6 +43,11 @@ export default function Page() {
     const setSelected = (newValue) => {
         selected = newValue;
     }
+
+    // for detecting inpu
+    const handleTextChange = (event) => {
+        setTitle(event.target.value);
+    };
       
     async function onSubmit(event) {
         event.preventDefault()
@@ -99,14 +105,13 @@ export default function Page() {
 
     return (
         <>
-        <Modal opened={opened} onClose={close} title="New Log" size="lg"
+        <Modal opened={opened} onClose={close} size="lg"
             classNames={{
                 content: classes.content
             }}>
             <form onSubmit={onSubmit}>
-                <p>Title</p>
-                <input type="text" name="title" className={classes.input}/>
-                <p>Description</p>
+                <input type="text" name="title" placeholder="Title" className={classes.input} onChange={handleTextChange}/>
+                <hr></hr>
                 {/* <input type="text" name="description" className={[classes.input, classes.inputDescription].join(" ")}/> */}
                 <span ref={spanRef}
                     name ="description"
@@ -120,14 +125,17 @@ export default function Page() {
                     onChange={(newValue) => setSelected(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
                     options={tags} 
                 />
-                <button type="submit" disabled={isSubmitting}>
+                <button type="submit" disabled={isSubmitting || !title} className={classes.button}>
                     {isSubmitting ? 'Loading...' : 'Submit'}
                 </button>
             </form>
         </Modal>
-        <Button variant="default" onClick={open}>
+        {/* <Button variant="default" onClick={open}>
             Create Log
-        </Button>
+        </Button> */}
+        <button className={classes.button} onClick={open}>
+            Create Log
+        </button>
 
         {/* https://www.sliderrevolution.com/resources/css-modal/ */}
 {/* <div class="box">
