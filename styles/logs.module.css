@@ -1,5 +1,7 @@
 .comment {
     padding: var(--mantine-spacing-lg) var(--mantine-spacing-xl);
+    display: flex;
+    flex-wrap: wrap;
   }
   
   /* .body {
@@ -29,4 +31,24 @@
     left: 50%; */
     align-self: center;
     margin-top: 50px;
+}
+
+.menu {
+    /* float: right; */
+    margin-left: auto;
+    /* text-align: right; */
+    /* flex-basis: 100%; */
+}
+
+.tags {
+    /* className="space-y-2" style={{listStyleType:'none', display:'flex'}} */
+    list-style-type: none;
+    display: flex;
+    align-self: flex-end;
+    flex: 0 0 100%; /* flex-grow, flex-shrink, flex-basis */
+    justify-content: flex-end;
+}
+
+.tag {
+    margin: 0 3px;
 }

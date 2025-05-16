@@ -12,7 +12,8 @@ import {
     IconTrash,
     IconArrowsLeftRight,
     IconDots,
-    IconEdit
+    IconEdit,
+    IconSunFilled
 } from '@tabler/icons-react';
 
 import classes from '../styles/logs.module.css'
@@ -92,26 +93,44 @@ export default function Page() {
                 <li key={log.id}>
                     <Paper withBorder radius="md" className={classes.comment}>
                     <Group>
-                        <Avatar
+                        {/* <Avatar
                         src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png"
                         alt="Jacob Warnhalter"
                         radius="xl"
-                        />
+                        /> */}
+                        <IconSunFilled size={30} />
                         <div>
                         <Text fz="sm">{log.title}</Text>
                         <Text fz="xs" c="dimmed">
                             some time ago
                         </Text>
+                        <Text pt="sm" size="sm">
+                            {log.description || ''}
+                        </Text>
                         </div>
                     </Group>
-                    <Text pl={54} pt="sm" size="sm">
-                        {log.description || ''}
-                    </Text>
-                    <ul className="space-y-2" style={{listStyleType:'none', display:'flex'}}>
+
+                    <Menu shadow="md" width={200} className={classes.menu}>
+                        <Menu.Target>
+                            <IconDots size={20}/>
+                        </Menu.Target>
+
+                        <Menu.Dropdown>
+                            <Menu.Item leftSection={<IconEdit size={14} />}>
+                            Edit
+                            </Menu.Item>
+                            <Menu.Item 
+                                color="red" leftSection={<IconTrash size={14} />}
+                                onClick={()=>deleteLog(log.id)}>
+                            Delete
+                            </Menu.Item>
+                        </Menu.Dropdown>
+                    </Menu>
+                    <ul className={classes.tags}>
                         {(log.tags).length > 0 ? (
                             log.tags.map(tag => (
-                            <li key={tag.id} className="p-4 border rounded shadow-sm">
-                                <Badge color="cyan" radius="sm">{tag.name}</Badge>
+                            <li key={tag.id} className={classes.tag}>
+                                <Badge variant="light" tt="none" color="cyan" radius="sm">{tag.name}</Badge>
                             </li>
                             ))
                         ) : (
@@ -119,22 +138,6 @@ export default function Page() {
                         )}
                     </ul>
                     {/* <Button onClick={()=>deleteLog(log.id)} variant="filled" size="xs">x</Button> */}
-                    <Menu shadow="md" width={200}>
-                    <Menu.Target>
-                        <IconDots size={20}/>
-                    </Menu.Target>
-
-                    <Menu.Dropdown>
-                        <Menu.Item leftSection={<IconEdit size={14} />}>
-                        Edit
-                        </Menu.Item>
-                        <Menu.Item 
-                            color="red" leftSection={<IconTrash size={14} />}
-                            onClick={()=>deleteLog(log.id)}>
-                        Delete
-                        </Menu.Item>
-                    </Menu.Dropdown>
-                    </Menu>
                     </Paper>
                 </li>
                 ))
