@@ -2,7 +2,7 @@ import Form from 'next/form'
 import React, { useState, FormEvent, useEffect, useRef } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button } from '@mantine/core';
+import { Modal, Button, Menu } from '@mantine/core';
 import classes from '@styles/createLog.module.css'
 
   

@@ -81,6 +81,7 @@
     opacity: 0.6;
 }
 
+/* https://uiverse.io/zjssun/curly-seahorse-76 */
 .button {
     width: fit-content;
     position: relative; /*makes the sparkles not spaz out on page load*/

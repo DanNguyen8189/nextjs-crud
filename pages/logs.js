@@ -1,8 +1,20 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
-import { Avatar, Group, Paper, Text, TypographyStylesProvider, Button, Badge, Loader} from '@mantine/core';
+import { Avatar, Group, Paper, Text, Button, Badge, Loader, Menu} from '@mantine/core';
 //import classes from '@styles/CommentHtml.module.css';
 import CreateLog from './createLog'
+
+import {
+    IconSettings,
+    IconSearch,
+    IconPhoto,
+    IconMessageCircle,
+    IconTrash,
+    IconArrowsLeftRight,
+    IconDots,
+    IconEdit
+} from '@tabler/icons-react';
+
 import classes from '../styles/logs.module.css'
 
 // this technically works, but ... this data probably shouldn't be publicky cached??
@@ -28,6 +40,7 @@ import classes from '../styles/logs.module.css'
 export default function Page() {
     const [logs, setLogs] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
+    const [opened, setOpened] = useState(false); // menu items
 
     // look at database to see all tag options
     useEffect(() => {
@@ -68,6 +81,9 @@ export default function Page() {
     return (
         <div className={classes.body}>
         <CreateLog/>
+            {/* <Alert variant="light" color="blue" title="Alert title">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. At officiis, quae tempore necessitatibus placeat saepe.
+    </Alert> */}
         {(isLoading) && <div className={classes.loader}><Loader color="blue" size="xl" /></div>}
         {(!isLoading && logs.length <= 0) && <p>No logs recorded</p>}
         {(!isLoading && logs.length > 0) &&
@@ -84,7 +100,7 @@ export default function Page() {
                         <div>
                         <Text fz="sm">{log.title}</Text>
                         <Text fz="xs" c="dimmed">
-                            10 minutes ago
+                            some time ago
                         </Text>
                         </div>
                     </Group>
@@ -102,7 +118,23 @@ export default function Page() {
                             <p></p>
                         )}
                     </ul>
-                    <Button onClick={()=>deleteLog(log.id)} variant="filled" size="xs">x</Button>
+                    {/* <Button onClick={()=>deleteLog(log.id)} variant="filled" size="xs">x</Button> */}
+                    <Menu shadow="md" width={200}>
+                    <Menu.Target>
+                        <IconDots size={20}/>
+                    </Menu.Target>
+
+                    <Menu.Dropdown>
+                        <Menu.Item leftSection={<IconEdit size={14} />}>
+                        Edit
+                        </Menu.Item>
+                        <Menu.Item 
+                            color="red" leftSection={<IconTrash size={14} />}
+                            onClick={()=>deleteLog(log.id)}>
+                        Delete
+                        </Menu.Item>
+                    </Menu.Dropdown>
+                    </Menu>
                     </Paper>
                 </li>
                 ))
