@@ -2,8 +2,7 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { Avatar, Group, Paper, Text, Button, Badge, Loader, Menu} from '@mantine/core';
 //import classes from '@styles/CommentHtml.module.css';
-import CreateLog from './createLog';
-import prisma from '../lib/prisma_lib';
+import CreateLog from './createLog'
 
 import {
     IconSettings,
@@ -50,22 +49,8 @@ export default function Page() {
             const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/logs`, {
                 method: 'GET'
             })
-            console.log(response);
             let logsArray = await response.json(); // properly turns response into array
             logsArray = logsArray.reverse()
-            setLogs(logsArray);
-            setIsLoading(false);
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-    async function fetchData2() {
-        try {
-            setIsLoading(true) // Set loading to true when the request starts
-            const logsArray = await prisma.Log.findMany();
-            console.log(logsArray);
-            logsArray = logsArray.reverse();
             setLogs(logsArray);
             setIsLoading(false);
         } catch (e) {

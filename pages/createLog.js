@@ -28,7 +28,6 @@ export default function Page({ onSignal }) {
         const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/tags`, {
             method: 'GET'
         })
-        console.log(response);
         let data = await response.json(); // properly turns response into array
         const data2 = data.map(createOptionWrapper);
         setTags(data2);
