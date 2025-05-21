@@ -43,23 +43,20 @@ export default function Page() {
     const [isLoading, setIsLoading] = useState(false)
     const [opened, setOpened] = useState(false); // menu items
 
-    // look at database to see all tag options
-    useEffect(() => {
     async function fetchData() {
         try{
             setIsLoading(true) // Set loading to true when the request starts
             const response = await fetch(`/api/logs`, {
                 method: 'GET'
             })
-            const logsArray = await response.json(); // properly turns response into array
+            let logsArray = await response.json(); // properly turns response into array
+            logsArray = logsArray.reverse()
             setLogs(logsArray);
             setIsLoading(false);
         } catch (e) {
             console.error(e)
         }
     }
-    fetchData();
-    }, []);
 
     async function deleteLog(id) {
         try {
@@ -79,16 +76,27 @@ export default function Page() {
         
     }
 
+    const onSignal = () => {
+        //console.log('Signal received from child:', data);
+        // Perform actions based on the signal
+        fetchData();
+    };
+
+    // look at database to get all logs
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
         <div className={classes.body}>
-        <CreateLog/>
+        <CreateLog onSignal={onSignal}/>
             {/* <Alert variant="light" color="blue" title="Alert title">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. At officiis, quae tempore necessitatibus placeat saepe.
     </Alert> */}
         {(isLoading) && <div className={classes.loader}><Loader color="blue" size="xl" /></div>}
         {(!isLoading && logs.length <= 0) && <p>No logs recorded</p>}
         {(!isLoading && logs.length > 0) &&
-            <ul className="space-y-2" style={{listStyleType:'none'}}>
+            <ul style={{listStyleType:'none'}}>
                 {logs.map(log => (
                 <li key={log.id}>
                     <Paper withBorder radius="md" className={classes.comment}>

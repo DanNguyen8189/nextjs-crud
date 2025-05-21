@@ -6,7 +6,7 @@ import { Modal, Button, Menu } from '@mantine/core';
 import classes from '@styles/createLog.module.css'
 
   
-export default function Page() {
+export default function Page({ onSignal }) {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [tags, setTags] = useState([]);
     const [title, setTitle] = useState('');
@@ -23,8 +23,6 @@ export default function Page() {
         return createOption(obj['name'])
     }
 
-    // look at database to see all tag options
-    useEffect(() => {
     async function fetchData() {
         // TODO add a try catch
         const response = await fetch(`/api/tags`, {
@@ -35,8 +33,6 @@ export default function Page() {
         console.log("from useEffect tags:", response);
         setTags(data2);
     }
-    fetchData();
-    }, []);
 
     let selected = []
 
@@ -49,6 +45,10 @@ export default function Page() {
         setTitle(event.target.value);
     };
       
+    const checkTitle = (str) => {
+        return typeof str === 'string' && str.trimStart().length > 0;
+    }
+
     async function onSubmit(event) {
         event.preventDefault()
         setIsSubmitting(true) // Set loading to true when the request starts
@@ -91,17 +91,26 @@ export default function Page() {
             // Handle response if necessary
             const data = await response.json()
             console.log(data)
+            sendSignal();
             close();
 
             // ...
         } catch (error) {
             // Capture the error message to display to the user
-            //setError(error.message)
+            // setError(error.message)
             console.error(error)
         } finally {
             setIsSubmitting(false) // Set loading to false when the request completes  
         }
     }
+
+    const sendSignal = () => {
+        onSignal('Hello from child!');
+    };
+    // look at database to see all tag options
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -109,7 +118,7 @@ export default function Page() {
             classNames={{
                 content: classes.content
             }}>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className={classes.form}>
                 <input type="text" name="title" placeholder="Title" className={classes.input} onChange={handleTextChange}/>
                 <hr></hr>
                 {/* <input type="text" name="description" className={[classes.input, classes.inputDescription].join(" ")}/> */}
@@ -125,7 +134,7 @@ export default function Page() {
                     onChange={(newValue) => setSelected(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
                     options={tags} 
                 />
-                <button type="submit" disabled={isSubmitting || !title} className={classes.button}>
+                <button type="submit" disabled={isSubmitting || !checkTitle(title)} className={classes.button}>
                     {isSubmitting ? 'Loading...' : 'Submit'}
                 </button>
             </form>
@@ -133,23 +142,9 @@ export default function Page() {
         {/* <Button variant="default" onClick={open}>
             Create Log
         </Button> */}
-        <button className={classes.button} onClick={open}>
-            Create Log
+        <button className={[classes.button].join(' ')} onClick={open}>
+            New Log
         </button>
-
-        {/* https://www.sliderrevolution.com/resources/css-modal/ */}
-{/* <div class="box">
-  <a href="#m1-o" class="link-1" id="m1-c">Modal 1</a>
-
-  <div class="modal-container" id="m1-o" style={{ background: "transparent"}}>
-    <div class="modal">
-      <h1 class="modal__title">Modal 1 Title</h1>
-      <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis ex dicta maiores libero minus obcaecati iste optio, eius labore repellendus.</p>
-      <button class="modal__btn">Button &rarr;</button>
-      <a href="#m1-c" class="link-2"></a>
-    </div>
-  </div>
-</div> */}
         </>
     )
 }
