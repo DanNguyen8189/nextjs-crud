@@ -25,12 +25,11 @@ export default function Page({ onSignal }) {
 
     async function fetchData() {
         // TODO add a try catch
-        const response = await fetch(`/api/tags`, {
+        const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/tags`, {
             method: 'GET'
         })
         let data = await response.json(); // properly turns response into array
         const data2 = data.map(createOptionWrapper);
-        console.log("from useEffect tags:", response);
         setTags(data2);
     }
 
