@@ -5,6 +5,9 @@ import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Menu } from '@mantine/core';
 import classes from '@styles/createLog.module.css'
 
+const url = process.env.NODE_ENV === 'production' 
+   ? process.env.SITE_URL
+   : ''
   
 export default function Page({ onSignal }) {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -24,13 +27,16 @@ export default function Page({ onSignal }) {
     }
 
     async function fetchData() {
-        // TODO add a try catch
-        const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/tags`, {
-            method: 'GET'
-        })
-        let data = await response.json(); // properly turns response into array
-        const data2 = data.map(createOptionWrapper);
-        setTags(data2);
+        try {
+            const response = await fetch(`${url}/api/tags`, {
+                method: 'GET'
+            })
+            let data = await response.json(); // properly turns response into array
+            const data2 = data.map(createOptionWrapper);
+            setTags(data2);
+        } catch(e) {
+            console.error(e)
+        }
     }
 
     let selected = []
