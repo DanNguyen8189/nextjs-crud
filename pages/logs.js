@@ -18,11 +18,6 @@ import {
 
 import classes from '../styles/logs.module.css'
 
-const url = process.env.NODE_ENV === 'production' 
-   ? process.env.SITE_URL
-   : ''
-
-
 // this technically works, but ... this data probably shouldn't be publicky cached??
 // export async function getStaticProps(){
 //     const logs = await prisma.Log.findMany();
@@ -51,7 +46,7 @@ export default function Page() {
     async function fetchData() {
         try{
             setIsLoading(true) // Set loading to true when the request starts
-            const response = await fetch(`${url}/api/logs`, {
+            const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/logs`, {
                 method: 'GET'
             })
             let logsArray = await response.json(); // properly turns response into array
@@ -67,7 +62,7 @@ export default function Page() {
         try {
             // https://react.dev/learn/updating-arrays-in-state
             //console.log("deleting log id: ", id);
-            const response = await fetch(`${url}/api/logs/${id}`, {
+            const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/logs/${id}`, {
                 method: 'DELETE'
             })
             if (response.ok){
