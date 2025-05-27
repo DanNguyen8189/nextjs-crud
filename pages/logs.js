@@ -2,7 +2,8 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { Avatar, Group, Paper, Text, Button, Badge, Loader, Menu} from '@mantine/core';
 //import classes from '@styles/CommentHtml.module.css';
-import CreateLog from './createLog'
+import CreateLog from './createLog';
+import apiUrl from '../lib/apiUrl';
 
 import {
     IconSettings,
@@ -46,7 +47,7 @@ export default function Page() {
     async function fetchData() {
         try{
             setIsLoading(true) // Set loading to true when the request starts
-            const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/logs`, {
+            const response = await fetch(`${apiUrl}/api/logs`, {
                 method: 'GET'
             })
             let logsArray = await response.json(); // properly turns response into array
@@ -62,7 +63,7 @@ export default function Page() {
         try {
             // https://react.dev/learn/updating-arrays-in-state
             //console.log("deleting log id: ", id);
-            const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/logs/${id}`, {
+            const response = await fetch(`${apiUrl}/api/logs/${id}`, {
                 method: 'DELETE'
             })
             if (response.ok){

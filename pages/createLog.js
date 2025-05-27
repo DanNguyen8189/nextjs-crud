@@ -3,8 +3,8 @@ import React, { useState, FormEvent, useEffect, useRef } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Menu } from '@mantine/core';
-import classes from '@styles/createLog.module.css'
-
+import classes from '@styles/createLog.module.css';
+import apiUrl from '../lib/apiUrl';
   
 export default function Page({ onSignal }) {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -25,7 +25,7 @@ export default function Page({ onSignal }) {
 
     async function fetchData() {
         // TODO add a try catch
-        const response = await fetch(`https://animated-hummingbird-6f6978.netlify.app/api/tags`, {
+        const response = await fetch(`${apiUrl}/api/tags`, {
             method: 'GET'
         })
         let data = await response.json(); // properly turns response into array
