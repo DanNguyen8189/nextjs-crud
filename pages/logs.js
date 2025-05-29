@@ -19,6 +19,10 @@ import {
 
 import classes from '../styles/logs.module.css'
 
+export const dynamic = 'force-dynamic'; // sets this to be a dynamic route (vs static) in netlify build. Needs to be dynamic 
+// in order to properly avoid problems when one page is doing all fetching during the build time and showing same static page
+// even after data updates
+
 // this technically works, but ... this data probably shouldn't be publicky cached??
 // export async function getStaticProps(){
 //     const logs = await prisma.Log.findMany();
@@ -67,6 +71,7 @@ export default function Page() {
                 method: 'DELETE'
             })
             if (response.ok){
+                // update logs array to delete log from the client side - that way we don't have to reload the whole page again
                 setLogs(logs.filter(l => l.id != id));
             }
             // const data = await response.json()
