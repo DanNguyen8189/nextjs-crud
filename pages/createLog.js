@@ -5,13 +5,19 @@ import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Menu } from '@mantine/core';
 import classes from '@styles/createLog.module.css';
 import apiUrl from '../lib/apiUrl';
+
+export const dynamic = 'force-dynamic';
+// sets this to be a dynamic route (vs static) in netlify build. Needs to be dynamic 
+// in order to properly avoid problems when page is doing all fetching during the build time and showing 
+// same static page even after data updates
   
 export default function Page({ onSignal }) {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [tags, setTags] = useState([]);
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(''); // used to check for required title input, disable submit if empty
     const spanRef = useRef(null); // needed to attach span text to formdata (formdata won't pick it up on its own)
-    const [opened, { open, close }] = useDisclosure(false); //modal open/close
+    // used a span here for styling purposes (make the text input look like twitter's tweet drafting; a regular input can't look like it)
+    const [opened, { open, close }] = useDisclosure(false); // modal open/close
 
     // creates options for multiselect dropdown component
     const createOption = (label) => ({
@@ -24,22 +30,25 @@ export default function Page({ onSignal }) {
     }
 
     async function fetchData() {
-        // TODO add a try catch
-        const response = await fetch(`${apiUrl}/api/tags`, {
-            method: 'GET'
-        })
-        let data = await response.json(); // properly turns response into array
-        const data2 = data.map(createOptionWrapper);
-        setTags(data2);
+        try {
+            const response = await fetch(`${apiUrl}/api/tags`, {
+                method: 'GET'
+            })
+            let data = await response.json(); // properly turns response into array
+            const data2 = data.map(createOptionWrapper);
+            setTags(data2);
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    let selected = []
+    let selected = [] // selcted tags
 
     const setSelected = (newValue) => {
         selected = newValue;
     }
 
-    // for detecting inpu
+    // for detecting input
     const handleTextChange = (event) => {
         setTitle(event.target.value);
     };
