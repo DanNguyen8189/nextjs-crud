@@ -1,6 +1,6 @@
 # Meltdown!
 Just experienced a meltdown? Log it here!
-https://animated-hummingbird-6f6978.netlify.app/
+https://meltdowntown.netlify.app/
 
 ## What I used
 - Next.js React framework with the pages router; I used this starter here: https://www.netlify.com/integrations/community-built/next-netlify-starter-template/
