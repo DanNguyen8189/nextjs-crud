@@ -42,7 +42,7 @@ export default function Page({ onSignal }) {
         }
     }
 
-    let selected = [] // selcted tags
+    let selected = [] // selected tags
 
     const setSelected = (newValue) => {
         selected = newValue;
@@ -151,7 +151,7 @@ export default function Page({ onSignal }) {
             Create Log
         </Button> */}
         <button className={[classes.button].join(' ')} onClick={open}>
-            New Log
+            New Meltdown
         </button>
         </>
     )

@@ -37,6 +37,7 @@
 }
 
 .content {
+    /*background-color: #22162B;*/
     flex: var(--modal-content-flex, 0 0 var(--modal-size));
     max-width: 100%;
     max-height: var(--modal-content-max-height, calc(100dvh - var(--modal-y-offset) * 2));
@@ -82,7 +83,7 @@
 }
 
 .inputDescription:empty::before {
-    content: "What's happening?";
+    content: "Oh no what's happening?";
     opacity: 0.6;
 }
 
