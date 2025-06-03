@@ -14,7 +14,8 @@ import {
     IconArrowsLeftRight,
     IconDots,
     IconEdit,
-    IconSunFilled
+    IconSunFilled,
+    IconCloudStorm
 } from '@tabler/icons-react';
 
 import classes from '../styles/logs.module.css'
@@ -100,7 +101,7 @@ export default function Page() {
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. At officiis, quae tempore necessitatibus placeat saepe.
     </Alert> */}
         {(isLoading) && <div className={classes.loader}><Loader color="blue" size="xl" /></div>}
-        {(!isLoading && logs.length <= 0) && <p>No logs recorded</p>}
+        {(!isLoading && logs.length <= 0) && <p>No meltdowns recorded. Get crashing!</p>}
         {(!isLoading && logs.length > 0) &&
             <ul style={{listStyleType:'none'}}>
                 {logs.map(log => (
@@ -112,7 +113,7 @@ export default function Page() {
                         alt="Jacob Warnhalter"
                         radius="xl"
                         /> */}
-                        <IconSunFilled size={30} />
+                        <IconCloudStorm size={30} />
                         <div>
                         <Text fz="sm">{log.title}</Text>
                         <Text fz="xs" c="dimmed">
