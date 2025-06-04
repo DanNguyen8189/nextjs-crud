@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
-import { Avatar, Group, Paper, Text, Button, Badge, Loader, Menu} from '@mantine/core';
+import { Avatar, Group, Paper, Text, Button, Badge, Loader, Menu, Switch} from '@mantine/core';
 //import classes from '@styles/CommentHtml.module.css';
 import CreateLog from './createLog';
 import apiUrl from '../lib/apiUrl';
@@ -15,14 +15,17 @@ import {
     IconDots,
     IconEdit,
     IconSunFilled,
-    IconCloudStorm
+    IconCloudStorm,
+    IconSun, 
+    IconMoonStars
 } from '@tabler/icons-react';
 
 import classes from '../styles/logs.module.css'
 
-export const dynamic = 'force-dynamic'; // sets this to be a dynamic route (vs static) in netlify build. Needs to be dynamic 
+//export const dynamic = 'force-dynamic'; // sets this to be a dynamic route (vs static) in netlify build. Needs to be dynamic 
 // in order to properly avoid problems when one page is doing all fetching during the build time and showing same static page
 // even after data updates
+export const revalidate = 0;
 
 // this technically works, but ... this data probably shouldn't be publicky cached??
 // export async function getStaticProps(){
@@ -48,6 +51,7 @@ export default function Page() {
     const [logs, setLogs] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
     const [opened, setOpened] = useState(false); // menu items
+    const [checked, setChecked] = useState(false); // lightmode/darkmode
 
     async function fetchData() {
         try{
@@ -96,6 +100,14 @@ export default function Page() {
 
     return (
         <div className={classes.body}>
+        {/* <Switch
+            size="md"
+            color="violet.7"
+            onLabel={<IconMoonStars size={16} stroke={2.5} color="var(--mantine-color-yellow-4)" />}
+            offLabel={<IconSun size={16} stroke={2.5} color="var(--mantine-color-violet-6)" />}
+            checked={checked}
+            onChange={(event) => setChecked(event.currentTarget.checked)}
+        /> */}
         <CreateLog onSignal={onSignal}/>
             {/* <Alert variant="light" color="blue" title="Alert title">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. At officiis, quae tempore necessitatibus placeat saepe.
@@ -115,22 +127,22 @@ export default function Page() {
                         /> */}
                         <IconCloudStorm size={30} />
                         <div>
-                        <Text fz="sm">{log.title}</Text>
-                        <Text fz="xs" c="dimmed">
+                        <Text className={classes.text}>{log.title}</Text>
+                        <Text c="dimmed" className={classes.text}>
                             some time ago
                         </Text>
-                        <Text pt="sm" size="sm">
+                        <Text pt="sm" className={classes.text}>
                             {log.description || ''}
                         </Text>
                         </div>
                     </Group>
 
-                    <Menu shadow="md" width={200} className={classes.menu}>
+                    <Menu shadow="md" className={classes.menu}>
                         <Menu.Target>
                             <IconDots size={20}/>
                         </Menu.Target>
 
-                        <Menu.Dropdown>
+                        <Menu.Dropdown className={classes.dropdown}>
                             <Menu.Item leftSection={<IconEdit size={14} />}>
                             Edit
                             </Menu.Item>

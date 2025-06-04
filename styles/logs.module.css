@@ -27,7 +27,12 @@
     display: flex;
     flex-wrap: wrap;
     /* background-color: var(--background-1); */
+    background-color: #f8fafc;
     /* border-color: var(--background-2); */
+    .text {
+        font-size: small;
+        /* color: var(--text); */
+    }
 }
 
 .loader{
@@ -43,6 +48,13 @@
 
 .menu {
     margin-left: auto;
+    color: var(--text);
+    opacity: 0.6;
+}
+
+.dropdown {
+    /* background: var(--background-1); */
+    background: #f8fafc;
 }
 
 .tags {
