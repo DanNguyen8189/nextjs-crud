@@ -8,6 +8,7 @@
 
    
 .body{
+    padding: 1.5rem 0;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -49,6 +50,7 @@
 .menu {
     margin-left: auto;
     /* color: var(--text); */
+    color: black;
     opacity: 0.6;
 }
 
