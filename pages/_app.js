@@ -3,6 +3,8 @@ import '@mantine/core/styles.css';
 
 import { createTheme, MantineProvider } from '@mantine/core';
 
+export const dynamic = 'force-dynamic';
+
 const theme = createTheme({
     /** Put your mantine theme override here */
     fontFamily: 'Open Sans, sans-serif',
