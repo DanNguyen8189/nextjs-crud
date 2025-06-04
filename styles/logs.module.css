@@ -48,7 +48,7 @@
 
 .menu {
     margin-left: auto;
-    color: var(--text);
+    /* color: var(--text); */
     opacity: 0.6;
 }
 
