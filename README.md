@@ -1,5 +1,5 @@
 # Meltdown!
-Just experienced a meltdown? Log it here!
+Just experienced a minor inconvenience? Log it here!
 https://meltdowntown.netlify.app/
 
 ## What I used

@@ -143,9 +143,9 @@ export default function Page() {
                         </Menu.Target>
 
                         <Menu.Dropdown className={classes.dropdown}>
-                            <Menu.Item leftSection={<IconEdit size={14} />}>
+                            {/* <Menu.Item leftSection={<IconEdit size={14} />}>
                             Edit
-                            </Menu.Item>
+                            </Menu.Item> */}
                             <Menu.Item 
                                 color="red" leftSection={<IconTrash size={14} />}
                                 onClick={()=>deleteLog(log.id)}>
