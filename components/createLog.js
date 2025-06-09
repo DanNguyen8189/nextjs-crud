@@ -124,8 +124,10 @@ export default function Page({ onSignal }) {
         <>
         <Modal opened={opened} onClose={close} size="lg"
             classNames={{
+                ...classes.reactSelect,
                 content: classes.content
             }}>
+            {/* className={classes.reactSelect}> */}
             <form onSubmit={onSubmit} className={classes.form}>
                 <input type="text" name="title" placeholder="Title" className={classes.input} onChange={handleTextChange}/>
                 <hr></hr>
@@ -141,6 +143,13 @@ export default function Page({ onSignal }) {
                     isClearable
                     onChange={(newValue) => setSelected(newValue)} // the onchange function from react-select component modifies the newValue variable into a list
                     options={tags} 
+                    // styles={{
+                    //     control: (baseStyles, state) => ({
+                    //     ...baseStyles,
+                    //     // borderColor: state.isFocused ? 'grey' : 'red',
+                    //     }),
+                    // }}
+                    className={classes.reactSelect}
                 />
                 <button type="submit" disabled={isSubmitting || !checkTitle(title)} className={classes.button}>
                     {isSubmitting ? 'Loading...' : 'Submit'}

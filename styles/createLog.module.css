@@ -37,7 +37,6 @@
 }
 
 .content {
-    /*background-color: #22162B;*/
     flex: var(--modal-content-flex, 0 0 var(--modal-size));
     max-width: 100%;
     max-height: var(--modal-content-max-height, calc(100dvh - var(--modal-y-offset) * 2));
@@ -137,6 +136,11 @@
 .button[disabled]{
     opacity: 50%;
 }
+
+
+/* .reactSelect [class$="-control"]{
+    background-color: var(--background-1);
+} */
 
 @keyframes greentopBubbles {
     0% {

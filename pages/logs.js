@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { Avatar, Group, Paper, Text, Button, Badge, Loader, Menu, Switch} from '@mantine/core';
 //import classes from '@styles/CommentHtml.module.css';
-import CreateLog from './createLog';
+import CreateLog from '../components/createLog';
 import apiUrl from '../lib/apiUrl';
 
 import {
