@@ -5,6 +5,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Menu } from '@mantine/core';
 import classes from '@styles/createLog.module.css';
 import apiUrl from '../lib/apiUrl';
+import { useRouter } from 'next/router'
 
 export const dynamic = 'force-dynamic';
 // sets this to be a dynamic route (vs static) in netlify build. Needs to be dynamic 
@@ -18,6 +19,7 @@ export default function Page({ onSignal }) {
     const spanRef = useRef(null); // needed to attach span text to formdata (formdata won't pick it up on its own)
     // used a span here for styling purposes (make the text input look like twitter's tweet drafting; a regular input can't look like it)
     const [opened, { open, close }] = useDisclosure(false); // modal open/close
+    const router = useRouter();
 
     // creates options for multiselect dropdown component
     const createOption = (label) => ({
@@ -101,6 +103,7 @@ export default function Page({ onSignal }) {
             console.log(data)
             sendSignal();
             close();
+            router.refresh();
 
             // ...
         } catch (error) {

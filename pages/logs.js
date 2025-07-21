@@ -4,6 +4,7 @@ import { Avatar, Group, Paper, Text, Button, Badge, Loader, Menu, Switch} from '
 //import classes from '@styles/CommentHtml.module.css';
 import CreateLog from '../components/createLog';
 import apiUrl from '../lib/apiUrl';
+import { useRouter } from 'next/router';
 
 import {
     IconSettings,
@@ -22,10 +23,10 @@ import {
 
 import classes from '../styles/logs.module.css'
 
-export const dynamic = 'force-dynamic'; // sets this to be a dynamic route (vs static) in netlify build. Needs to be dynamic 
+// export const dynamic = 'force-dynamic'; // sets this to be a dynamic route (vs static) in netlify build. Needs to be dynamic 
 // in order to properly avoid problems when one page is doing all fetching during the build time and showing same static page
-// even after data updates
-export const revalidate = 0;
+// even after data updates NOTE: Doesn't work in pages router
+// export const revalidate = 0; // NOTE: Doesn't work in pages router
 
 // this technically works, but ... this data probably shouldn't be publicky cached??
 // export async function getStaticProps(){
@@ -52,6 +53,7 @@ export default function Page() {
     const [isLoading, setIsLoading] = useState(false)
     const [opened, setOpened] = useState(false); // menu items
     const [checked, setChecked] = useState(false); // lightmode/darkmode
+    const router = useRouter();
 
     async function fetchData() {
         try{
@@ -81,6 +83,7 @@ export default function Page() {
             }
             // const data = await response.json()
             // console.log(data)
+            router.refresh();
         } catch (e){
             console.error(e)
         }
