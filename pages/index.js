@@ -1,12 +1,12 @@
 import Head from 'next/head'
-import Header from '@components/Header'
-import Footer from '@components/Footer'
+// import Header from '@components/Header'
+// import Footer from '@components/Footer'
 import Link from 'next/link'
 
 export default function Home() {
     return (
         <div className="container">
-        <Head>
+        {/* <Head>
             <title>Next.js Starter!</title>
             <link rel="icon" href="/favicon.ico" />
         </Head>
@@ -17,10 +17,9 @@ export default function Home() {
             Get started by editing <code>pages/index.js</code>
             </p>
         </main>
-        {/* <Prisma_test/> */}
         <Link href="/page">Test page</Link>
         <Link href="/logs">Logs Page</Link>
-        <Footer />
+        <Footer /> */}
         </div>
     )
 }
