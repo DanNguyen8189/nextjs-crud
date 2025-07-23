@@ -125,7 +125,7 @@ export default function Page({ onSignal }) {
 
     return (
         <>
-        <Modal opened={opened} onClose={close} size="lg"
+        <Modal title="Submitnew" opened={opened} onClose={close} size="lg"
             classNames={{
                 ...classes.reactSelect,
                 content: classes.content
@@ -154,7 +154,7 @@ export default function Page({ onSignal }) {
                     // }}
                     className={classes.reactSelect}
                 />
-                <button type="submit" disabled={isSubmitting || !checkTitle(title)} className={classes.button}>
+                <button name="submit" type="submit" disabled={isSubmitting || !checkTitle(title)} className={classes.button}>
                     {isSubmitting ? 'Loading...' : 'Submit'}
                 </button>
             </form>
