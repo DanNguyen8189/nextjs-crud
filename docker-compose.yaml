@@ -1,4 +1,4 @@
-# docker-compose.yml
+# docker-compose.yml for running a PostgreSQL database for testing purposes
 version: '3.8'
 services:
   db:
@@ -7,6 +7,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=default_database
     ports:
       - '5432:5432'
     volumes:
