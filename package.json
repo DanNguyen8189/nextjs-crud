@@ -7,9 +7,9 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "export": "next build && next export",
-    "test": "cd e2e-tests && npx playwright test ",
+    "test": "cd tests/e2e-tests && npx playwright test ",
     "test:headed": "../scripts/run-e2e.sh --headed",
-    "test:e2e": "cd e2e-tests && ../scripts/run-e2e.sh",
+    "test:e2e": "cd tests/e2e-tests && ../scripts/run-e2e.sh",
     "test:e2e:headed": "../scripts/run-e2e.sh --headed"
   },
   "dependencies": {

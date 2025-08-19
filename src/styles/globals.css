@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    --background-1: #22162B;
+    --background-2: #451F55;
+    --focus: #724E91;
+    --accent-1: #E54F6D;
+    --accent-2: #F8C630;
+    --text: #f8fafc;
+    /* background-color: #f8fafc; */
+    display: contents; /* used to get around the <div id="next"> that next.js creates underneath the html element. 
+    causes an element's children to appear as if they were direct children of the element's parent, ignoring the element itself*/
+    /* background: var(--background-1); */
+    background: #f8fafc;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+        Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+main {
+    padding: 5rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: var(--background-1);; */
+}
