@@ -1,27 +1,17 @@
-import Link from 'next/link'
+
 import React, { useState, useEffect } from 'react'
-import { Avatar, Group, Paper, Text, Button, Badge, Loader, Menu, Switch} from '@mantine/core';
-//import classes from '@styles/CommentHtml.module.css';
-import CreateLog from '../components/createLog';
-import apiUrl from '../lib/apiUrl';
+import { Group, Paper, Text, Badge, Loader, Menu } from '@mantine/core';
+import CreateLog from '@components/createLog';
+import apiUrl from '@utils/apiUrl';
 import { useRouter } from 'next/router';
 
 import {
-    IconSettings,
-    IconSearch,
-    IconPhoto,
-    IconMessageCircle,
     IconTrash,
-    IconArrowsLeftRight,
     IconDots,
-    IconEdit,
-    IconSunFilled,
     IconCloudStorm,
-    IconSun, 
-    IconMoonStars
 } from '@tabler/icons-react';
 
-import classes from '../styles/logs.module.css'
+import classes from '@styles/logs.module.css'
 
 // export const dynamic = 'force-dynamic'; // sets this to be a dynamic route (vs static) in netlify build. Needs to be dynamic 
 // in order to properly avoid problems when one page is doing all fetching during the build time and showing same static page
@@ -51,8 +41,8 @@ import classes from '../styles/logs.module.css'
 export default function Page() {
     const [logs, setLogs] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
-    const [opened, setOpened] = useState(false); // menu items
-    const [checked, setChecked] = useState(false); // lightmode/darkmode
+    // const [opened, setOpened] = useState(false); // menu items
+    // const [checked, setChecked] = useState(false); // lightmode/darkmode
     const router = useRouter();
 
     async function fetchData() {

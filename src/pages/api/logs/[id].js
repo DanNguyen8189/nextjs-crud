@@ -1,9 +1,5 @@
-import formidable from 'formidable';
-import { firstValues } from "formidable/src/helpers/firstValues.js";
-import * as yup from "yup";
-import { object, string, number, date, InferType } from 'yup';
-import prisma from '../../../lib/prisma_lib';
-import { Prisma } from '@prisma/client';
+import prisma from '@prisma_module/prisma.module';
+
 
 export default async function handler(req, res) {
 	const {

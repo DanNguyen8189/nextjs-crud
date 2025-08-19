@@ -3,7 +3,9 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@prisma_module/*": ["src/modules/prisma/*"],
+      "@utils/*": ["src/utils/*"],
     }
   }
 }
