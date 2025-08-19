@@ -1,0 +1,34 @@
+# docker-compose.yml for running a PostgreSQL database for testing purposes TODO
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=default_database
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
+
+
+# Set the version of docker compose to use
+# version: '3.9'
+
+# # The containers that compose the project
+# services:
+#   db:
+#     image: postgres:14.1-alpine
+#     restart: always
+#     container_name: integration-tests-prisma
+#     ports:
+#       - '5433:5432'
+#     environment:
+#       POSTGRES_USER: prisma
+#       POSTGRES_PASSWORD: prisma
+#       POSTGRES_DB: tests

@@ -1,9 +1,4 @@
-import formidable from 'formidable';
-import { firstValues } from "formidable/src/helpers/firstValues.js";
-import * as yup from "yup";
-import { object, string, number, date, InferType } from 'yup';
-import prisma from '../../../lib/prisma_lib';
-import { Prisma } from '@prisma/client';
+import prisma from '@prisma_module/prisma.module';
 
 export default async function handler(req, res) {
 	const {
@@ -14,14 +9,14 @@ export default async function handler(req, res) {
     switch ( method ) {
         case "GET":
             try {
-                const log = await prisma.log.findUnique({
+                const tag = await prisma.tag.findUnique({
                     where: {
                         id: parseInt(id)
                     }
                 })
                 res.status(200).send({ 
                     success: true,
-                    data: log
+                    data: tag
                 });
             } catch (e){
                 res.status(400).send({ 
@@ -32,7 +27,7 @@ export default async function handler(req, res) {
             }
         case "DELETE":
             try {
-                const deleteLog = await prisma.log.delete({
+                const deleteTag = await prisma.tag.delete({
                     where: {
                         id: parseInt(id)
                     },
@@ -40,7 +35,7 @@ export default async function handler(req, res) {
 
 				return res.status(200).json({
 					success: true,
-					data: deleteLog
+					data: deleteTag
 				});
 
             } catch (e) {

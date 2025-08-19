@@ -1,10 +1,10 @@
-import Form from 'next/form'
-import React, { useState, FormEvent, useEffect, useRef } from 'react'
+
+import React, { useState, useEffect, useRef } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button, Menu } from '@mantine/core';
+import { Modal } from '@mantine/core';
 import classes from '@styles/createLog.module.css';
-import apiUrl from '../lib/apiUrl';
+import apiUrl from '../utils/apiUrl';
 import { useRouter } from 'next/router'
 
 export const dynamic = 'force-dynamic';
@@ -125,7 +125,7 @@ export default function Page({ onSignal }) {
 
     return (
         <>
-        <Modal opened={opened} onClose={close} size="lg"
+        <Modal title="Submitnew" opened={opened} onClose={close} size="lg"
             classNames={{
                 ...classes.reactSelect,
                 content: classes.content
@@ -154,7 +154,7 @@ export default function Page({ onSignal }) {
                     // }}
                     className={classes.reactSelect}
                 />
-                <button type="submit" disabled={isSubmitting || !checkTitle(title)} className={classes.button}>
+                <button name="submit" type="submit" disabled={isSubmitting || !checkTitle(title)} className={classes.button}>
                     {isSubmitting ? 'Loading...' : 'Submit'}
                 </button>
             </form>
