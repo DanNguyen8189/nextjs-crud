@@ -11,4 +11,5 @@ https://meltdowntown.netlify.app/
 
 ## Why
 - I thought it'd be funny 
-- I wanted to learn about working with React and databases. In hindsight, maybe I didn't need to start with Next.js but I learned and it worked out okay
+
+- I wanted to learn about working with React and databases!
